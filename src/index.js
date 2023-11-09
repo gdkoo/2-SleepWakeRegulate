@@ -12,7 +12,7 @@ import getCurrentWeatherData from './api/getCurrentWeatherData.js';
 import getHourlyForecastArray from './api/getHourlyForecastArray.js';
 import { epochHourToCondition, currentWeatherData, sunsetUTCDate, sunriseUTCDate } from './api/index.js';
 
-import { getSunsetEpoch, getSunriseEpoch, findEpochKey, getWeatherValsFromTarget, getTargetArray, getSunriseTargetArray } from './calculation/epochWeatherMethods.js';
+import { getSunsetEpoch, getSunriseEpoch, findEpochKey, getWeatherValsFromTarget, getSunsetTargetArray, getSunriseTargetArray } from './calculation/epochWeatherMethods.js';
 import { morningInfo, eveningInfo } from './calculation/epochWeatherMethods.js';
 import { Range, rangeRules } from './calculation/classifyRange.js';
 import { compareCodeToRange, compareCloudToRange, accessRangeInstance, getDisplayValues } from './calculation/compareToRange.js';
@@ -32,7 +32,6 @@ import sunsetCharles from './images/yellow-sunset-charles.jpg';
 import './style.css';
 
 executeDisplay();
-
 
 new Timer(
 	document.querySelector(".f2-timer"));

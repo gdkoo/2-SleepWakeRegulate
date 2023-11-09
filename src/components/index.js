@@ -4,6 +4,8 @@ import eveningMainDisplay from './eveningMainDisplay.js';
 import tooLateDisplay from './tooLateDisplay.js';
 import { morningInfo, eveningInfo } from '../calculation/epochWeatherMethods.js';
 
+let timerMaxLeft = '';
+
 export async function executeDisplay() {
 	try {
 		const displayValues = await getDisplayValues();
@@ -32,9 +34,10 @@ export async function executeDisplay() {
 		alert(`${err.name}:${err.message}`);
 		console.log(err);
 	} finally {
-		console.log(timerMaxLeft);
+		return timerMaxLeft;
+	}
 }
 
-const timerMaxLeft = await executeDisplay();
+timerMaxLeft = await executeDisplay();
 
 export {timerMaxLeft};

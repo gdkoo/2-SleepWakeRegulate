@@ -25,7 +25,6 @@ export function getSunsetEpoch (sunsetUTCDate) {
 		//Convert sunrise string in UTC from getInfo() response into nearest hour in seconds in epoch format. Keep in UTC timezone.
 export function getSunriseEpoch (sunriseUTCDate) {
 	const sunriseRoundHrEpoch = roundToHourEpochSec(sunriseUTCDate);
-
 	return sunriseRoundHrEpoch;
 }
 
@@ -38,9 +37,6 @@ export function findEpochKey (obj, target) {
 	return false;
 }
 
-/**
- * 2. e
- */
 
 /** 
  * Name: getWeatherValsFromTarget
@@ -82,7 +78,7 @@ export function getWeatherValsFromTarget (returnedArr, epoch) {
 /**
 * SITUATIONS:
 */
-export async function getTargetArray (sunsetRoundHrEpoch, localTimeEpoch) {
+export async function getSunsetTargetArray (sunsetRoundHrEpoch, localTimeEpoch) {
 	/**
 	* A. when it's later than sunset
 	* 	i. if it's past sunset, we use the current time to find current weather:
@@ -134,11 +130,9 @@ export async function getSunriseTargetArray (sunriseRoundHrEpoch, localTimeEpoch
 	if (sunriseRoundHrEpoch > localTimeEpoch) {
 		const display = 'sunrise';
 		const sunriseArray = await epochHourToCondition.filter(obj => findEpochKey(obj, sunriseRoundHrEpoch));
-	
-	const {weatherCode, weatherCloud} = getWeatherValsFromTarget(sunriseArray, sunriseRoundHrEpoch);
-	return {weatherCode, weatherCloud, display};
+		const {weatherCode, weatherCloud} = getWeatherValsFromTarget(sunriseArray, sunriseRoundHrEpoch);
+		return {weatherCode, weatherCloud, display};
 	}
-
 }
 
 export async function execute () {
@@ -147,11 +141,11 @@ export async function execute () {
 	const localTimeEpoch = await currentWeatherData.localTimeEpoch;
 	//morningInfo = {weatherCode, weatherCloud, display};
 	//eveningInfo = {weatherCode, weatherCloud, display};
-	const eveningInfo = await getTargetArray(sunsetRoundHrEpoch, localTimeEpoch);
-	const morningInfo = await getTargetArray(sunriseRoundHrEpoch, localTimeEpoch);
+	const eveningInfo = await getSunsetTargetArray(sunsetRoundHrEpoch, localTimeEpoch);
+	const morningInfo = await getSunriseTargetArray(sunriseRoundHrEpoch, localTimeEpoch);
 	return {morningInfo, eveningInfo};
 
 }
 
 const {morningInfo, eveningInfo} = await execute();
-export {morning Info, eveningInfo};
+export {morningInfo, eveningInfo};
